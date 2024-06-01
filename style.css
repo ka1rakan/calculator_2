@@ -3,3 +3,26 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    height: 500px;
+    width: 500px;
+    background-color: gray;
+    padding: 16px;
+}
+
+.screen {
+    background-color: black;
+    height: 25%;
+}
+
+.buttons {
+    height: 75%;
+}
