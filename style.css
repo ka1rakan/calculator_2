@@ -1,7 +1,13 @@
+@font-face {
+    font-family: Poppins;
+    src: url(Poppins-Medium.ttf);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: Poppins;
 }
 
 body {
@@ -21,9 +27,17 @@ body {
     border-radius: 5px;
 }
 
-.screen {
+.display {
     background-color: rgba(129, 129, 128, 1);
     height: 25%;
+
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+    padding: 20px;
+    color: whitesmoke;
+    font-size: 24px;
 }
 
 .buttons {
@@ -34,13 +48,14 @@ body {
     padding-top: 12px;
     column-gap: 1%;
     row-gap: 2.5%;
+    color: rgba(80, 80, 80, 1);
 }
 
 .button {
     flex: 1 1 18%;
     width: 23%;
 
-    background-color: white;
+    background-color: whitesmoke;
     font-size: 24px;
     border-radius: 5px;
 
