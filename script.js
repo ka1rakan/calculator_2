@@ -22,6 +22,12 @@ function clickButton(button) {
             }
         }
     } else if (button.id == 'x' || button.id == '/' || button.id == '+' || button.id == '-') {
+        if (currOp != null) {
+            operate();
+            num1 = result;
+            num2 = 0;
+            result = null;
+        }
         currOp = button.id;
         floating = false;
     } else if (button.id == 'del') {
@@ -35,18 +41,22 @@ function clickButton(button) {
         num2 = 0;
         currOp = null;
     } else if (button.id == '=') {
-        if (currOp == 'x') {
-            result = num1 * num2;
-        } else if (currOp == '/') {
-            result = num1 / num2;
-        } else if (currOp == '+') {
-            result = num1 + num2;
-        } else if (currOp == '-') {
-            result = num1 - num2;
-        }
-        floating = false;
+        operate();
     } else if (button.id == '.') {
         floating = true;
     }
     console.log(`num1: ${num1}\nop: ${currOp}\nnum2: ${num2}\nresult: ${result}`)
+}
+
+function operate() {
+    if (currOp == 'x') {
+        result = num1 * num2;
+    } else if (currOp == '/') {
+        result = num1 / num2;
+    } else if (currOp == '+') {
+        result = num1 + num2;
+    } else if (currOp == '-') {
+        result = num1 - num2;
+    }
+    floating = false;
 }
