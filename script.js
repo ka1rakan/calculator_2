@@ -1,11 +1,52 @@
 const buttons = document.querySelectorAll(".button");
-buttons.forEach(button => button.addEventListener("click", (e) =>));
+buttons.forEach(button => button.addEventListener("click", (e) => clickButton(e.target)));
 
-let currentNum = 0;
+let num1 = 0;
+let num2 = 0;
+let floating = false;
+let result;
+let currOp = null;
 function clickButton(button) {
     if (button.id >= '0' && button.id <= '9') {
-        currentNum = currentNum * 10;
-        currentNum += +button.id
+        if (currOp == null) {
+            num1 = num1 * 10;
+            num1 += button.id - '0';
+            if (floating) {
+                num1 = num1 / 10;
+            }
+        } else {
+            num2 = num2 * 10;
+            num2 += button.id - '0';
+            if (floating) {
+                num2 = num2 / 10;
+            }
+        }
+    } else if (button.id == 'x' || button.id == '/' || button.id == '+' || button.id == '-') {
+        currOp = button.id;
+        floating = false;
+    } else if (button.id == 'del') {
+        if (currOp == null) {
+            num1 = Math.floor(num1 / 10);
+        } else {
+            num2 = Math.floor(num2 / 10);
+        }
+    } else if (button.id == 'clear') {
+        num1 = 0;
+        num2 = 0;
+        currOp = null;
+    } else if (button.id == '=') {
+        if (currOp == 'x') {
+            result = num1 * num2;
+        } else if (currOp == '/') {
+            result = num1 / num2;
+        } else if (currOp == '+') {
+            result = num1 + num2;
+        } else if (currOp == '-') {
+            result = num1 - num2;
+        }
+        floating = false;
+    } else if (button.id == '.') {
+        floating = true;
     }
-    console.log(currentNum);
+    console.log(`num1: ${num1}\nop: ${currOp}\nnum2: ${num2}\nresult: ${result}`)
 }
