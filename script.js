@@ -5,9 +5,9 @@ buttons.forEach(button => button.addEventListener("click", (e) => clickButton(e.
 let num1 = 0;
 let num2 = 0;
 let floating = false;
-let result;
 let currOp = null;
 function clickButton(button) {
+    let isDot = false;
     if (button.id >= '0' && button.id <= '9') {
         if (currOp == null) {
             num1 = num1 * 10;
@@ -25,9 +25,7 @@ function clickButton(button) {
     } else if (button.id == 'x' || button.id == '/' || button.id == '+' || button.id == '-') {
         if (currOp != null) {
             operate();
-            num1 = result;
             num2 = 0;
-            result = null;
         }
         currOp = button.id;
         floating = false;
@@ -50,24 +48,42 @@ function clickButton(button) {
     } else if (button.id == '=') {
         operate();
     } else if (button.id == '.') {
+        if (!floating) {
+            isDot = true;
+        }
         floating = true;
     }
-    console.log(`num1: ${num1}\nop: ${currOp}\nnum2: ${num2}\nresult: ${result}`)
+    renderDisplay(button.id, isDot);
+    console.log(`num1: ${num1}\nop: ${currOp}\nnum2: ${num2}\n`)
 }
 
 function operate() {
     if (currOp == 'x') {
-        result = num1 * num2;
+        num1 = num1 * num2;
     } else if (currOp == '/') {
-        result = num1 / num2;
+        num1 = num1 / num2;
     } else if (currOp == '+') {
-        result = num1 + num2;
+        num1 = num1 + num2;
     } else if (currOp == '-') {
-        result = num1 - num2;
+        num1 = num1 - num2;
     }
-    num1 = 0;
     num2 = 0;
     currOp = null;
     floating = false;
-    display.textContent = `= ${result}`;
+}
+
+function renderDisplay(button, isDot) {
+    if (currOp == null) {
+        display.textContent = `${num1}`;
+        if (isDot) {
+            display.textContent += '.';
+        }
+    } else if (num1 != 0 && currOp != null && num2 == 0) {
+        display.textContent = `${num1} ${currOp}`;
+    } else {
+        display.textContent = `${num1} ${currOp} ${num2}`;
+        if (isDot) {
+            display.textContent += '.';
+        }
+    }
 }
