@@ -5,16 +5,19 @@ buttons.forEach(button => button.addEventListener("click", (e) => clickButton(e.
 let num1 = 0;
 let num2 = 0;
 let floating = false;
+let resultOnDisplay = 0;
 let currOp = null;
 function clickButton(button) {
     let isDot = false;
     if (button.id >= '0' && button.id <= '9') {
-        if (currOp == null) {
+        if (currOp == null && !resultOnDisplay) {
             num1 = num1 * 10;
             num1 += button.id - '0';
             if (floating) {
                 num1 = num1 / 10;
             }
+        } else if (currOp == null && resultOnDisplay) {
+            num1 = button.id - '0';
         } else {
             num2 = num2 * 10;
             num2 += button.id - '0';
@@ -48,12 +51,16 @@ function clickButton(button) {
     } else if (button.id == '=') {
         operate();
     } else if (button.id == '.') {
-        if (!floating) {
-            isDot = true;
+        if (floating) {
+            return;
         }
+        isDot = true;
         floating = true;
     }
     renderDisplay(button.id, isDot);
+    if (button.id != '=') {
+        resultOnDisplay = 0;
+    }
     console.log(`num1: ${num1}\nop: ${currOp}\nnum2: ${num2}\n`)
 }
 
@@ -67,6 +74,7 @@ function operate() {
     } else if (currOp == '-') {
         num1 = num1 - num2;
     }
+    resultOnDisplay = 1;
     num2 = 0;
     currOp = null;
     floating = false;
