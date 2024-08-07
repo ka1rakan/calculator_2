@@ -54,6 +54,9 @@ function clickButton(button) {
         if (floating) {
             return;
         }
+        if (resultOnDisplay) {
+            num1 = 0;
+        }
         isDot = true;
         floating = true;
     }
@@ -61,7 +64,7 @@ function clickButton(button) {
     if (button.id != '=') {
         resultOnDisplay = 0;
     }
-    console.log(`num1: ${num1}\nop: ${currOp}\nnum2: ${num2}\n`)
+    console.log(`num1: ${num1}\nop: ${currOp}\nnum2: ${num2}\n resultOnDisplay: ${resultOnDisplay}\n`)
 }
 
 function operate() {
