@@ -53,7 +53,7 @@ function clickButton(button) {
         num1 = 0;
         num2 = 0;
         currOp = null;
-        exponent = 0;
+        floatExp = 0;
     } else if (button.id == '=') {
         operate();
     } else if (button.id == '.') {
