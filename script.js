@@ -76,6 +76,10 @@ function clickButton(button) {
         floatExp++;
         dotPressed = true;
     }
+    if (button.id == '=' && !resultOnDisplay) {
+        return;
+    }
+
     renderDisplay(button.id, dotPressed);
     if (button.id != '=') {
         resultOnDisplay = 0;
@@ -87,6 +91,14 @@ function operate() {
     if (currOp == 'x') {
         num1 = num1 * num2;
     } else if (currOp == '/') {
+        if (num2 == 0) {
+            resultOnDisplay = 0;
+            num1 = null;
+            num2 = null;
+            currOp = null;
+            display.textContent = "ERROR";
+            return;
+        }
         num1 = num1 / num2;
     } else if (currOp == '+') {
         num1 = num1 + num2;
@@ -94,7 +106,7 @@ function operate() {
         num1 = num1 - num2;
     }
     resultOnDisplay = 1;
-    num2 = 0;
+    num2 = null;
     currOp = null;
 }
 
