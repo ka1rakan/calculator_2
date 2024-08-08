@@ -8,12 +8,13 @@ let floatExp = 0;
 let digits = 0;
 let resultOnDisplay = 0;
 let currOp = null;
+let rounded = 0;
 function clickButton(button) {
     playClickSound();
     let dotPressed = false;
     if (button.id >= '0' && button.id <= '9') {
         digits++;
-        if (digits > 7) {
+        if (digits > 8) {
             return;
         }
         if (currOp == null && !resultOnDisplay) {
@@ -98,6 +99,14 @@ function clickButton(button) {
 function operate() {
     if (currOp == 'x') {
         num1 = num1 * num2;
+        if (num1 > 1000000000000000) {
+            num1 = Math.round(num1 / 100000);
+            rounded = 1;
+        }
+        if (num1 > 100000000000000) {
+            num1 = Math.round(num1 / 10000);
+            rounded = 1;
+        }
     } else if (currOp == '/') {
         if (num2 == 0) {
             resultOnDisplay = 0;
@@ -119,15 +128,17 @@ function operate() {
 }
 
 function renderDisplay(button, dotPressed) {
-    if (num1 != null && !resultOnDisplay) {
-        num1 = Math.round(num1 * 10 ** (floatExp)) / (10 ** floatExp);
-    }
-    if (num2 != null) {
-        num2 = Math.round(num2 * 10 ** (floatExp)) / (10 ** floatExp);
-    }
+    num1 = Math.round(num1 * 10 ** 8) / 10 ** 8;
+    num2 = Math.round(num2 * 10 ** 8) / 10 ** 8;
     if (currOp == null) {
         if (num1 == null) {
             num1 = 0;
+        }
+        if (rounded) {
+            display.textContent = `${num1}...`;
+            rounded = 0;
+            num1 = 0;
+            return;
         }
         display.textContent = `${num1}`;
         if (dotPressed) {
