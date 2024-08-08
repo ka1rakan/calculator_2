@@ -118,13 +118,16 @@ function operate() {
 }
 
 function renderDisplay(button, dotPressed) {
-    if (num1 != null) {
+    if (num1 != null && !resultOnDisplay) {
         num1 = Math.round(num1 * 10 ** (floatExp)) / (10 ** floatExp);
     }
     if (num2 != null) {
         num2 = Math.round(num2 * 10 ** (floatExp)) / (10 ** floatExp);
     }
     if (currOp == null) {
+        if (num1 == null) {
+            num1 = 0;
+        }
         display.textContent = `${num1}`;
         if (dotPressed) {
             display.textContent += '.';
