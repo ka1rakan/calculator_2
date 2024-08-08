@@ -9,6 +9,7 @@ let digits = 0;
 let resultOnDisplay = 0;
 let currOp = null;
 function clickButton(button) {
+    playClickSound();
     let dotPressed = false;
     if (button.id >= '0' && button.id <= '9') {
         digits++;
@@ -140,4 +141,9 @@ function renderDisplay(button, dotPressed) {
             display.textContent += '.';
         }
     }
+}
+
+function playClickSound() {
+    let click = new Audio('sounds/click.wav');
+    click.play();
 }
