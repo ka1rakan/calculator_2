@@ -5,11 +5,16 @@ buttons.forEach(button => button.addEventListener("click", (e) => clickButton(e.
 let num1 = null;
 let num2 = null;
 let floatExp = 0;
+let digits = 0;
 let resultOnDisplay = 0;
 let currOp = null;
 function clickButton(button) {
     let dotPressed = false;
     if (button.id >= '0' && button.id <= '9') {
+        digits++;
+        if (digits > 7) {
+            return;
+        }
         if (currOp == null && !resultOnDisplay) {
             if (num1 == null) {
                 num1 = 0;
@@ -45,6 +50,7 @@ function clickButton(button) {
     } else if (button.id == 'x' || button.id == '/' || button.id == '+' || button.id == '-') {
         currOp = button.id;
         floatExp = 0;
+        digits = 0;
     } else if (button.id == "del") {
         if (floatExp > 0) {
             floatExp--;
@@ -61,6 +67,7 @@ function clickButton(button) {
         num2 = null;
         currOp = null;
         floatExp = 0;
+        digits = 0;
     } else if (button.id == '=') {
         if (currOp == null || num2 == null) {
             return;
@@ -111,6 +118,12 @@ function operate() {
 }
 
 function renderDisplay(button, dotPressed) {
+    if (num1 != null) {
+        num1 = Math.round(num1 * 10 ** (floatExp)) / (10 ** floatExp);
+    }
+    if (num2 != null) {
+        num2 = Math.round(num2 * 10 ** (floatExp)) / (10 ** floatExp);
+    }
     if (currOp == null) {
         display.textContent = `${num1}`;
         if (dotPressed) {
