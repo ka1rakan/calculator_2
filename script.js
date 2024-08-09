@@ -178,8 +178,8 @@ function playClickSound() {
 }
 
 function doClickEffect(clicked) {
-    clicked.style.backgroundColor = "#b5b5b5";
+    clicked.style.filter = "brightness(60%)";
     setTimeout(() => {
-        clicked.style.backgroundColor = "whitesmoke";
+        clicked.style.filter = "brightness(100%)";
     }, 150);
 }

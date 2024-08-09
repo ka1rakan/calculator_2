@@ -86,10 +86,16 @@ body {
 
 .button.special {
     flex: 2 1 59%;
+    background-color: #ff9e17;
 }
 
-.button.special>div {
-    background-color: rgba(213, 213, 213, 1);
+.button:nth-child(5n+1) {
+    background-color: #f7401b;
+}
+
+#clear,
+#del {
+    background-color: #aec200;
 }
 
 footer {
