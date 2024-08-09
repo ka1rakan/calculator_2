@@ -106,7 +106,7 @@ function clickButton(keyName) {
     if (keyName != '=') {
         resultOnDisplay = 0;
     }
-    console.log(`num1: ${num1}\nop: ${currOp}\nnum2: ${num2}\n resultOnDisplay: ${resultOnDisplay}\n`)
+    console.log(`num1: ${num1}\nop: ${currOp}\nnum2: ${num2}\nresultOnDisplay: ${resultOnDisplay}\n`)
 }
 
 function operate() {
@@ -159,7 +159,7 @@ function renderDisplay(button, dotPressed) {
         if (dotPressed) {
             display.textContent += '.';
         }
-    } else if (num1 != 0 && currOp != null && num2 == null) {
+    } else if (num1 != null && currOp != null && num2 == null) {
         display.textContent = `${num1} ${currOp}`;
     } else {
         display.textContent = `${num1} ${currOp} ${num2}`;
