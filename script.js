@@ -1,6 +1,9 @@
 const buttons = document.querySelectorAll(".button");
 const display = document.querySelector(".display>p");
-buttons.forEach(button => button.addEventListener("click", (e) => clickButton(e.target.id)));
+buttons.forEach(button => button.addEventListener("click", (e) => {
+    clickButton(e.target.id)
+    doClickEffect(e.target);
+}));
 document.addEventListener("keydown", (e) => {
     let keyName = e.key;
     if ((keyName >= '0' && keyName <= '9') || keyName == '/' ||
@@ -174,3 +177,9 @@ function playClickSound() {
     click.play();
 }
 
+function doClickEffect(clicked) {
+    clicked.style.backgroundColor = "#b5b5b5";
+    setTimeout(() => {
+        clicked.style.backgroundColor = "whitesmoke";
+    }, 150);
+}
