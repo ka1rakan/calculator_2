@@ -1,6 +1,19 @@
 const buttons = document.querySelectorAll(".button");
 const display = document.querySelector(".display>p");
-buttons.forEach(button => button.addEventListener("click", (e) => clickButton(e.target)));
+buttons.forEach(button => button.addEventListener("click", (e) => clickButton(e.target.id)));
+document.addEventListener("keydown", (e) => {
+    let keyName = e.key;
+    if ((keyName >= '0' && keyName <= '9') || keyName == '/' ||
+        keyName == '-' || keyName == '+' || keyName == '=' || keyName == '.') {
+        clickButton(keyName);
+    } else if (keyName == "Backspace") {
+        clickButton("del");
+    } else if (keyName == '*') {
+        clickButton('x');
+    } else if (keyName == "Enter") {
+        clickButton('=');
+    }
+})
 
 let num1 = null;
 let num2 = null;
@@ -9,10 +22,10 @@ let digits = 0;
 let resultOnDisplay = 0;
 let currOp = null;
 let rounded = 0;
-function clickButton(button) {
+function clickButton(keyName) {
     playClickSound();
     let dotPressed = false;
-    if (button.id >= '0' && button.id <= '9') {
+    if (keyName >= '0' && keyName <= '9') {
         digits++;
         if (digits > 8) {
             return;
@@ -27,13 +40,13 @@ function clickButton(button) {
             } else {
                 num1 = num1 * (10 ** floatExp);
             }
-            num1 += button.id - '0';
+            num1 += keyName - '0';
             if (floatExp > 0) {
                 num1 = num1 / (10 ** floatExp);
                 floatExp++;
             }
         } else if (currOp == null && resultOnDisplay) {
-            num1 = button.id - '0';
+            num1 = keyName - '0';
         } else {
             if (num2 == null) {
                 num2 = 0;
@@ -43,17 +56,17 @@ function clickButton(button) {
             } else {
                 num2 = num2 * (10 ** floatExp)
             }
-            num2 += button.id - '0';
+            num2 += keyName - '0';
             if (floatExp != 0) {
                 num2 = num2 / (10 ** floatExp);
                 floatExp++;
             }
         }
-    } else if (button.id == 'x' || button.id == '/' || button.id == '+' || button.id == '-') {
-        currOp = button.id;
+    } else if (keyName == 'x' || keyName == '/' || keyName == '+' || keyName == '-') {
+        currOp = keyName;
         floatExp = 0;
         digits = 0;
-    } else if (button.id == "del") {
+    } else if (keyName == "del") {
         if (floatExp > 0) {
             floatExp--;
         }
@@ -64,18 +77,18 @@ function clickButton(button) {
         } else {
             num2 = Math.floor(num2 / 10);
         }
-    } else if (button.id == "clear") {
+    } else if (keyName == "clear") {
         num1 = null;
         num2 = null;
         currOp = null;
         floatExp = 0;
         digits = 0;
-    } else if (button.id == '=') {
+    } else if (keyName == '=') {
         if (currOp == null || num2 == null) {
             return;
         }
         operate();
-    } else if (button.id == '.') {
+    } else if (keyName == '.') {
         if (floatExp > 0) {
             return;
         }
@@ -85,12 +98,12 @@ function clickButton(button) {
         floatExp++;
         dotPressed = true;
     }
-    if (button.id == '=' && !resultOnDisplay) {
+    if (keyName == '=' && !resultOnDisplay) {
         return;
     }
 
-    renderDisplay(button.id, dotPressed);
-    if (button.id != '=') {
+    renderDisplay(keyName, dotPressed);
+    if (keyName != '=') {
         resultOnDisplay = 0;
     }
     console.log(`num1: ${num1}\nop: ${currOp}\nnum2: ${num2}\n resultOnDisplay: ${resultOnDisplay}\n`)
@@ -129,7 +142,9 @@ function operate() {
 
 function renderDisplay(button, dotPressed) {
     num1 = Math.round(num1 * 10 ** 8) / 10 ** 8;
-    num2 = Math.round(num2 * 10 ** 8) / 10 ** 8;
+    if (num2 != null) {
+        num2 = Math.round(num2 * 10 ** 8) / 10 ** 8;
+    }
     if (currOp == null) {
         if (num1 == null) {
             num1 = 0;
@@ -158,3 +173,4 @@ function playClickSound() {
     let click = new Audio('sounds/click.wav');
     click.play();
 }
+
