@@ -1,11 +1,16 @@
 @font-face {
-    font-family: Poppins;
+    font-family: buttons;
     src: url(fonts/Orbitron-Regular.ttf);
 }
 
 @font-face {
-    font-family: calculator;
+    font-family: Display;
     src: url(fonts/ChakraPetch-Regular.ttf);
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url(fonts/Poppins-Medium.ttf);
 }
 
 * {
@@ -32,7 +37,7 @@ body {
 }
 
 .display {
-    font-family: calculator;
+    font-family: Display;
     background-color: rgba(129, 129, 128, 1);
     height: 25%;
 
@@ -46,7 +51,7 @@ body {
 }
 
 .buttons {
-    font-family: Poppins;
+    font-family: Buttons;
     height: 75%;
     display: flex;
     flex-direction: column;
@@ -81,4 +86,19 @@ body {
 
 .button.special>div {
     background-color: rgba(213, 213, 213, 1);
+}
+
+footer {
+    position: absolute;
+    bottom: 1vh;
+
+    font-family: Poppins;
+    font-size: 18px;
+
+    color: rgba(80, 80, 80, 1);
+}
+
+footer a {
+    text-decoration: none;
+    color: rgba(80, 80, 80, 1);
 }
